@@ -20,7 +20,7 @@ git clone https://github.com/shirleyharleywiley/markdown-to-multi-style.git ~/.c
 
 | Style | Color | Best For |
 |-------|-------|----------|
-| left-block | 薄荷绿 / Mint | 技术文档 / Technical docs |
+| left-block | 薄荷绿 / Mint | 简历 / resume |
 | bottom-deco | 粉红 / Pink | 技术博客 / Tech blogs |
 | gradient-pill | 柠檬黄 / Yellow | 公众号 / WeChat |
 | stripe-docs | 紫色 / Purple | API文档 / API docs |
