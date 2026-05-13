@@ -18,7 +18,6 @@ def _load():
     if _DATA is None:
         with open(os.path.join(_SELF_DIR, 'data.json'), encoding='utf-8') as f:
             raw = json.load(f)
-        # 展开 palette RGB list → tuple
         for pk, pv in raw['palettes'].items():
             for k in ('primary', 'primary_dark', 'primary_light', 'secondary', 'secondary_dark', 'secondary_light'):
                 if k in pv:
@@ -31,7 +30,6 @@ PALETTES = property(lambda self: _load()['palettes'])
 STYLES   = property(lambda self: _load()['styles'])
 
 
-# 懒加载，每次访问时从 JSON 取
 class _PALETTES(dict):
     def __getitem__(self, k): return _load()['palettes'][k]
     def keys(self): return _load()['palettes'].keys()
@@ -45,10 +43,6 @@ class _STYLES(dict):
 PALETTES = _PALETTES()
 STYLES   = _STYLES()
 
-
-# ============================================================
-# 配色加载：将 color_map 解析为实际 RGB 值
-# ============================================================
 
 def build_color_dict(style_key, palette_key):
     """根据版式+配色，构建 docx_colors 字典"""
@@ -124,32 +118,122 @@ def css_with_palette(style_key, palette_key):
 # 核心工具函数
 # ============================================================
 
+def is_separator_row(line):
+    """判断是否是表格分隔行"""
+    stripped = line.strip()
+    if not stripped.startswith('|'):
+        return False
+    inner = stripped.strip('|')
+    cells = [c.strip() for c in inner.split('|')]
+    return all(re.match(r'^[-: ]+$', c) for c in cells)
+
+def is_valid_table_row(line):
+    """判断是否是有效的表格数据行（非分隔行，有多列内容）"""
+    stripped = line.strip()
+    if not stripped.startswith('|') or is_separator_row(stripped):
+        return False
+    inner = stripped.strip('|')
+    cells = [c.strip() for c in inner.split('|')]
+    return len(cells) >= 2 and any(c for c in cells)
+
+def has_chinese(text):
+    """检查文本是否包含中文"""
+    return any('一' <= c <= '鿿' for c in text)
+
+def has_english(text):
+    """检查文本是否包含英文"""
+    return any('a' <= c <= 'z' or 'A' <= c <= 'Z' for c in text)
+
+def is_bilingual_merge(row1, row2):
+    """判断两行是否应该合并（双语对照场景）"""
+    cells1 = [c.strip() for c in row1.strip().strip('|').split('|')]
+    cells2 = [c.strip() for c in row2.strip().strip('|').split('|')]
+
+    if len(cells1) != len(cells2) or len(cells1) < 2:
+        return False
+
+    for c1, c2 in zip(cells1, cells2):
+        if not c1 or not c2:
+            continue
+        has_ch1, has_ch2 = has_chinese(c1), has_chinese(c2)
+        has_en1, has_en2 = has_english(c1), has_english(c2)
+        is_chinese_english_pair = (has_ch1 and not has_ch2 and has_en2 and not has_en1) or \
+                                  (has_ch2 and not has_ch1 and has_en1 and not has_en2)
+        if not is_chinese_english_pair:
+            return False
+
+    return True
+
 def fix_bilingual_tables(md_text):
+    """双语对照表格合并 — 仅对真正的中英对照行进行合并，普通表格不受影响"""
     lines = md_text.split('\n')
     result = []
     i = 0
     while i < len(lines):
         line = lines[i]
         stripped = line.strip()
-        if stripped.startswith('|') and not stripped.startswith('|---'):
-            inner = stripped.strip('|')
-            cells = [c.strip() for c in inner.split('|')]
-            if all(re.match(r'^[-: ]+$', c) for c in cells):
-                result.append(line); i += 1; continue
-            if i + 1 < len(lines):
-                next_line = lines[i + 1].strip()
-                next_inner = next_line.strip('|')
-                next_cells = [c.strip() for c in next_inner.split('|')]
-                if all(re.match(r'^[-: ]+$', c) for c in next_cells):
-                    result.append(line); i += 1; continue
-                if len(cells) == len(next_cells):
-                    merged = '|'.join([(c1 + ' / ' + c2) if c1 != c2 else c1
-                                      for c1, c2 in zip(cells, next_cells)])
-                    result.append('| ' + merged + ' |'); i += 2; continue
+
+        if is_separator_row(stripped):
+            result.append(line)
+            i += 1
+            continue
+
+        if is_valid_table_row(stripped):
+            if i + 2 < len(lines):
+                sep_line = lines[i + 1]
+                next_content = lines[i + 2]
+
+                if is_separator_row(sep_line) and is_valid_table_row(next_content):
+                    if is_bilingual_merge(stripped, next_content):
+                        cells1 = [c.strip() for c in stripped.strip('|').split('|')]
+                        cells2 = [c.strip() for c in next_content.strip('|').split('|')]
+                        merged = '|'.join([(c1 + ' / ' + c2) if c1 != c2 else c1
+                                          for c1, c2 in zip(cells1, cells2)])
+                        result.append('| ' + merged + ' |')
+                        i += 3
+                        continue
+
             result.append(line)
         else:
             result.append(line)
+
         i += 1
+
+    return '\n'.join(result)
+
+
+def fix_table_preceding_blank_lines(md_text):
+    """修复表格前缺少空行的问题 — 仅在表格开始处插入空行（不包括表格内容之间）"""
+    lines = md_text.split('\n')
+    result = []
+    in_table = False  # 是否在表格内
+
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+
+        # 检测到表格行
+        if stripped.startswith('|'):
+            inner = stripped.strip('|')
+            cells = [c.strip() for c in inner.split('|')]
+
+            # 是有效表格行（非分隔行，有多列内容）
+            if cells and len(cells) >= 2 and not all(re.match(r'^[-: ]+$', c) for c in cells):
+                # 表格的第一个有效行前需要空行
+                if not in_table:
+                    # 检查前一行是否为空行
+                    if result and result[-1].strip() != '':
+                        result.append('')
+                    in_table = True
+            else:
+                # 是分隔行，继续表格
+                pass
+
+            result.append(line)
+        else:
+            # 非表格行，退出表格状态
+            in_table = False
+            result.append(line)
+
     return '\n'.join(result)
 
 
@@ -161,6 +245,7 @@ def fix_special_syntax(md_text):
 def md_to_html(md_path):
     md = open(md_path, encoding='utf-8').read()
     fixed = fix_bilingual_tables(md)
+    fixed = fix_table_preceding_blank_lines(fixed)
     fixed = fix_special_syntax(fixed)
     return markdown.Markdown(extensions=['fenced_code', 'tables', 'nl2br', 'sane_lists', 'toc']).convert(fixed)
 
@@ -168,6 +253,7 @@ def md_to_html(md_path):
 def md_to_docx(md_path):
     md = open(md_path, encoding='utf-8').read()
     fixed = fix_bilingual_tables(md)
+    fixed = fix_table_preceding_blank_lines(fixed)
     fixed = fix_special_syntax(fixed)
     html = markdown.Markdown(extensions=['fenced_code', 'tables', 'nl2br', 'sane_lists']).convert(fixed)
     soup = BeautifulSoup(html, 'html.parser')
@@ -184,7 +270,6 @@ def generate_html(md_path, style_key, palette_key="blue", output_path=None):
     style = data['styles'][style_key]
     pal = data['palettes'][palette_key]
     css = css_with_palette(style_key, palette_key)
-    accent = f"#{pal['primary'][0]:02x}{pal['primary'][1]:02x}{pal['primary'][2]:02x}"
 
     html = (
         '<!DOCTYPE html>\n'
@@ -192,7 +277,7 @@ def generate_html(md_path, style_key, palette_key="blue", output_path=None):
         '<head>\n'
         '<meta charset="UTF-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        '<title>' + style["label"] + ' - ' + os.path.basename(md_path) + '</title>\n'
+        '<title>' + os.path.basename(md_path) + '</title>\n'
         '<style>\n'
         '  * { box-sizing: border-box; margin: 0; padding: 0; }\n'
         '  ' + css + '\n'
@@ -200,13 +285,9 @@ def generate_html(md_path, style_key, palette_key="blue", output_path=None):
         '  .md-body pre::-webkit-scrollbar { height: 6px; }\n'
         '  .md-body pre::-webkit-scrollbar-track { background: #1a1a1a; }\n'
         '  .md-body pre::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }\n'
-        '  .label { position: fixed; top: 16px; right: 20px; background: ' + accent + '; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: -apple-system, sans-serif; }\n'
-        '  .palette-tag { position: fixed; top: 52px; right: 20px; background: rgba(0,0,0,0.6); color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-family: -apple-system, sans-serif; }\n'
         '</style>\n'
         '</head>\n'
         '<body>\n'
-        '<div class="label">' + style["label"] + '</div>\n'
-        '<div class="palette-tag">' + pal["label"] + '</div>\n'
         '<div class="md-body">\n'
         + html_content + '\n'
         '</div>\n'
