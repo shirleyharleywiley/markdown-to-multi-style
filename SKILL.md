@@ -7,7 +7,7 @@
 ## 使用方法
 
 ```
-/markdown-to-word-multi-style /path/to/article.md
+/mdstyle /path/to/article.md
 ```
 
 AI 分析文件名和内容 → 推荐版式 → 确认后生成。
