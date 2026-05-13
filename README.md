@@ -7,8 +7,14 @@ Convert Markdown to styled Word or HTML with one click.
 8 professional styles for AI-generated content.
 专为 AI 产出内容设计，8 种专业版式。
 
-Supports bilingual docs, mixed Chinese-English, tables and more.
-双语文档、中英混杂、表格等格式都能完美呈现。
+Word tables render beautifully, especially for bilingual documents.
+Word 表格显示效果极佳，尤其适合双语文档。
+
+## Install / 安装
+
+```bash
+git clone https://github.com/shirleyharleywiley/markdown-to-multi-style.git ~/.claude/skills/mdstyle
+```
 
 ## 8 Styles / 8 种版式
 
