@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stripe Docs - README.md</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .md-body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.7;color:#324654;background:#fff;max-width:800px;margin:0 auto;padding:32px 0}.md-body h1{font-size:1.8em;font-weight:700;color:#635BFF;margin:0 0 20px}.md-body h2{font-size:1.3em;font-weight:600;color:#635BFF;margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid #e6ebf1}.md-body h3{font-size:1.05em;font-weight:600;color:#324654;margin:24px 0 10px}.md-body h4,.md-body h5,.md-body h6{font-weight:600;margin:16px 0 8px}.md-body p{margin:0 0 14px;line-height:1.7}.md-body a{color:#635BFF;text-decoration:none}.md-body a:hover{text-decoration:underline}.md-body ul,.md-body ol{margin:12px 0;padding-left:1.5em}.md-body li{margin-bottom:4px}.md-body li::marker{color:#635BFF}.md-body blockquote{margin:12px 0;padding:10px 16px;color:#62778a;border-left:3px solid #635BFF;background:#f6f9fc}.md-body pre{margin:16px 0;padding:14px 16px;background:#1a1a2e;border-radius:6px;overflow-x:auto;font-size:13px;line-height:1.5;color:#e8e8e8}.md-body code{color:#635BFF;background:#f6f9fc;padding:1px 4px;border-radius:3px;font-size:0.9em}.md-body pre code{color:#e8e8e8;background:none;padding:0;font-size:13px}.md-body table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}.md-body table th{padding:8px 12px;background:#f6f9fc;color:#635BFF;font-weight:600;border:1px solid #e6ebf1}.md-body table td{padding:8px 12px;border:1px solid #e6ebf1}.md-body table tr:nth-child(even) td{background:#f6f9fc}.md-body hr{margin:24px 0;border:0;border-top:1px solid #e6ebf1}
+  .md-body img { max-width: 100%; border-radius: 5px; display: block; margin: 16px 0; }
+  .md-body pre::-webkit-scrollbar { height: 6px; }
+  .md-body pre::-webkit-scrollbar-track { background: #1a1a1a; }
+  .md-body pre::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+  .label { position: fixed; top: 16px; right: 20px; background: #635bff; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: -apple-system, sans-serif; }
+  .palette-tag { position: fixed; top: 52px; right: 20px; background: rgba(0,0,0,0.6); color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-family: -apple-system, sans-serif; }
+</style>
+</head>
+<body>
+<div class="label">Stripe Docs</div>
+<div class="palette-tag">紫色</div>
+<div class="md-body">
+<h1 id="markdown-style-converter">Markdown Style Converter</h1>
+<p>一键将 Markdown 转换为带精美样式的 Word 或 HTML，支持 8 种专业版式。</p>
+<p><strong>专为 AI 产出内容设计</strong>，双语文档、中英混杂、表格等格式都能完美呈现。</p>
+<h2 id="8">8 种版式</h2>
+<table>
+<thead>
+<tr>
+<th>版式</th>
+<th>配色</th>
+<th>适合场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>left-block / bottom-deco</td>
+<td>薄荷绿 / 粉红</td>
+<td>技术文档、公众号 / 技术博客</td>
+</tr>
+<tr>
+<td>gradient-pill / stripe-docs</td>
+<td>柠檬黄 / 紫色</td>
+<td>公众号 / API文档、开发指南</td>
+</tr>
+<tr>
+<td>cmd-markdown / notion</td>
+<td>酒红 / 蓝色</td>
+<td>团队笔记 / 双语内容</td>
+</tr>
+<tr>
+<td>medium / linear</td>
+<td>青绿 / 浅绿</td>
+<td>长文阅读 / 代码密集</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">快速开始</h2>
+<pre><code>/markdown-to-word-multi-style /path/to/article.md
+</code></pre>
+<h2 id="_2">输出格式</h2>
+<ul>
+<li><strong>Word (.docx)</strong> — Stripe Docs / Notion（表格显示效果极佳）</li>
+<li><strong>HTML</strong> — 8 种版式全部支持</li>
+</ul>
+<blockquote>
+<p>示例文件在 <code>examples/</code> 目录，可直接打开查看效果</p>
+</blockquote>
+<h2 id="_3">避坑指南</h2>
+<table>
+<thead>
+<tr>
+<th>版式</th>
+<th>避免用于</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gradient-pill / bottom-deco</td>
+<td>含表格的文档 / 正式工作报告</td>
+</tr>
+<tr>
+<td>left-block / linear</td>
+<td>标题密集的文档 / 代码占比 &lt;50% 的文档</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>

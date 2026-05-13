@@ -1,0 +1,443 @@
+{
+  "palettes": {
+    "green": {
+      "label": "薄荷绿",
+      "primary": [
+        0,
+        184,
+        148
+      ],
+      "primary_dark": [
+        0,
+        153,
+        123
+      ],
+      "primary_light": [
+        204,
+        236,
+        230
+      ],
+      "secondary": [
+        9,
+        132,
+        227
+      ],
+      "secondary_dark": [
+        7,
+        112,
+        191
+      ],
+      "secondary_light": [
+        204,
+        229,
+        255
+      ],
+      "adjacent": "blue",
+      "tertiary": [
+        108,
+        92,
+        231
+      ]
+    },
+    "pink": {
+      "label": "粉红",
+      "primary": [
+        253,
+        121,
+        168
+      ],
+      "primary_dark": [
+        235,
+        87,
+        130
+      ],
+      "primary_light": [
+        255,
+        236,
+        244
+      ],
+      "secondary": [
+        253,
+        203,
+        110
+      ],
+      "secondary_dark": [
+        235,
+        180,
+        76
+      ],
+      "secondary_light": [
+        255,
+        243,
+        214
+      ],
+      "adjacent": "yellow"
+    },
+    "yellow": {
+      "label": "柠檬黄",
+      "primary": [
+        255,
+        224,
+        130
+      ],
+      "primary_dark": [
+        232,
+        204,
+        106
+      ],
+      "primary_light": [
+        255,
+        240,
+        208
+      ],
+      "secondary": [
+        168,
+        213,
+        162
+      ],
+      "secondary_dark": [
+        142,
+        192,
+        136
+      ],
+      "secondary_light": [
+        212,
+        236,
+        207
+      ],
+      "adjacent": "green"
+    },
+    "purple": {
+      "label": "紫色",
+      "primary": [
+        99,
+        91,
+        255
+      ],
+      "primary_dark": [
+        77,
+        71,
+        199
+      ],
+      "primary_light": [
+        230,
+        227,
+        255
+      ],
+      "secondary": [
+        130,
+        119,
+        249
+      ],
+      "secondary_dark": [
+        99,
+        91,
+        199
+      ],
+      "secondary_light": [
+        237,
+        234,
+        255
+      ],
+      "adjacent": "blue"
+    },
+    "wine": {
+      "label": "酒红",
+      "primary": [
+        102,
+        0,
+        51
+      ],
+      "primary_dark": [
+        77,
+        0,
+        38
+      ],
+      "primary_light": [
+        230,
+        204,
+        217
+      ],
+      "secondary": [
+        255,
+        126,
+        121
+      ],
+      "secondary_dark": [
+        235,
+        87,
+        87
+      ],
+      "secondary_light": [
+        255,
+        235,
+        234
+      ],
+      "adjacent": "pink"
+    },
+    "blue": {
+      "label": "蓝色",
+      "primary": [
+        47,
+        116,
+        201
+      ],
+      "primary_dark": [
+        37,
+        92,
+        159
+      ],
+      "primary_light": [
+        237,
+        242,
+        250
+      ],
+      "secondary": [
+        47,
+        116,
+        201
+      ],
+      "secondary_dark": [
+        37,
+        92,
+        159
+      ],
+      "secondary_light": [
+        237,
+        242,
+        250
+      ],
+      "adjacent": "purple"
+    },
+    "teal": {
+      "label": "青绿",
+      "primary": [
+        15,
+        189,
+        155
+      ],
+      "primary_dark": [
+        12,
+        159,
+        130
+      ],
+      "primary_light": [
+        230,
+        250,
+        247
+      ],
+      "secondary": [
+        15,
+        189,
+        155
+      ],
+      "secondary_dark": [
+        12,
+        159,
+        130
+      ],
+      "secondary_light": [
+        230,
+        250,
+        247
+      ],
+      "adjacent": "green"
+    },
+    "lime": {
+      "label": "浅绿",
+      "primary": [
+        130,
+        234,
+        170
+      ],
+      "primary_dark": [
+        98,
+        203,
+        137
+      ],
+      "primary_light": [
+        227,
+        250,
+        236
+      ],
+      "secondary": [
+        130,
+        234,
+        170
+      ],
+      "secondary_dark": [
+        98,
+        203,
+        137
+      ],
+      "secondary_light": [
+        227,
+        250,
+        236
+      ],
+      "adjacent": "green"
+    }
+  },
+  "styles": {
+    "left-block": {
+      "label": "左侧大色块",
+      "desc": "H1/H2 背景色块 · 斜切角装饰",
+      "default_palette": "green",
+      "html_css": ".md-body{font-family:\"PingFang SC\",\"Hiragino Sans GB\",\"Microsoft YaHei\",Arial,sans-serif;font-size:15px;line-height:1.8;color:#2d3436;background:#fff;max-width:860px;margin:0 auto;padding:40px 0}.md-body h1{font-size:2em;font-weight:800;color:#fff;background:#00b894;padding:20px 24px;margin:20px 0 16px;border-radius:0 8px 8px 0;position:relative}.md-body h1::before{content:\"\";position:absolute;left:-20px;top:0;bottom:0;width:20px;background:#00b894;transform:skewX(-10deg)}.md-body h2{font-size:1.3em;font-weight:700;color:#fff;background:#0984e3;padding:10px 20px;margin:24px 0 14px;border-radius:0 6px 6px 0;position:relative}.md-body h2::before{content:\"\";position:absolute;left:-16px;top:0;bottom:0;width:16px;background:#0984e3;transform:skewX(-10deg)}.md-body h2 code,.md-body h2 strong{color:#fff}.md-body h3{font-size:1.1em;font-weight:700;color:#fff;background:#6c5ce7;padding:8px 16px;margin:20px 0 10px;border-radius:0 5px 5px 0}.md-body h4,.md-body h5,.md-body h6{font-weight:700;margin:16px 0 8px}.md-body p{margin:0 0 16px}.md-body a{color:#0984e3;text-decoration:none}.md-body a:hover{text-decoration:underline}.md-body ul,.md-body ol{margin:12px 0 16px;padding-left:6%}.md-body li{margin-bottom:0.5em}.md-body li::marker{color:#00b894}.md-body blockquote{margin:16px 0;padding:12px 20px;border-left:4px solid #00b894;background:#f0fff9;color:#636e72}.md-body pre{margin:0 0 20px;padding:16px 20px;background:#2d3436;border-radius:8px;font-size:13px;color:#dfe6e9;overflow-x:auto}.md-body code{color:#e84393;background:#fce4ec;padding:2px 5px;border-radius:3px;font-size:0.9em}.md-body pre code{color:#dfe6e9;background:none;padding:0}.md-body table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}.md-body table th{padding:10px 14px;background:#00b894;color:#fff;font-weight:700;border:1px solid rgba(255,255,255,0.3)}.md-body table td{padding:9px 14px;border:1px solid #dfe6e9}.md-body table tr:nth-child(even) td{background:#f0fff9}.md-body hr{margin:24px 0;border:0;border-top:2px solid #e8e8e8}",
+      "color_map": {
+        "h1": "PRIMARY",
+        "h2": "SECONDARY",
+        "h3": "TERTIARY",
+        "text": "TEXT",
+        "link": "SECONDARY",
+        "code_bg": "CODE_BG",
+        "code_text": "CODE_TEXT",
+        "table_header_bg": "PRIMARY",
+        "table_border": "TABLE_BORDER",
+        "table_alt_bg": "PRIMARY_LIGHT",
+        "blockquote_border": "PRIMARY",
+        "blockquote_text": "BLOCKQUOTE_TEXT"
+      }
+    },
+    "bottom-deco": {
+      "label": "底部装饰条",
+      "desc": "彩虹底部边线 · 粉色强调",
+      "default_palette": "pink",
+      "html_css": ".md-body{font-family:\"PingFang SC\",\"Hiragino Sans GB\",\"Microsoft YaHei\",Arial,sans-serif;font-size:15px;line-height:1.8;color:#2d3436;background:#fff;max-width:860px;margin:0 auto;padding:40px 0}.md-body h1{font-size:2em;font-weight:800;color:#2d3436;padding:16px 0 14px;margin-bottom:8px;border-bottom:3px solid;border-image:linear-gradient(to right,#fd79a8,#fdcb6e,#00b894,#0984e3,#a29bfe)1}.md-body h2{font-size:1.3em;font-weight:700;color:#2d3436;padding:12px 0;margin:28px 0 14px;border-bottom:2px solid #fd79a8;position:relative}.md-body h2::after{content:\"\";position:absolute;left:0;bottom:-2px;width:60px;height:2px;background:#fd79a8}.md-body h3{font-size:1.1em;font-weight:700;color:#fd79a8;margin:20px 0 10px;padding-left:12px;border-left:3px solid #fd79a8}.md-body h4,.md-body h5,.md-body h6{font-weight:700;margin:16px 0 8px}.md-body p{margin:0 0 16px}.md-body a{color:#fd79a8;text-decoration:none}.md-body a:hover{text-decoration:underline}.md-body ul,.md-body ol{margin:12px 0 16px;padding-left:6%}.md-body li{margin-bottom:0.5em}.md-body li::marker{color:#fd79a8}.md-body blockquote{margin:16px 0;padding:12px 20px;border-left:4px solid #fd79a8;background:#fff5f7;color:#636e72}.md-body pre{margin:0 0 20px;padding:16px 20px;background:#2d3436;border-radius:8px;font-size:13px;color:#dfe6e9;overflow-x:auto}.md-body code{color:#e84393;background:#fce4ec;padding:2px 5px;border-radius:3px;font-size:0.9em}.md-body pre code{color:#dfe6e9;background:none;padding:0}.md-body table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}.md-body table th{padding:10px 14px;background:#fd79a8;color:#fff;font-weight:700;border:1px solid rgba(255,255,255,0.3)}.md-body table td{padding:9px 14px;border:1px solid #dfe6e9}.md-body table tr:nth-child(even) td{background:#fff5f7}.md-body hr{margin:24px 0;border:0;border-top:1px solid #dfe6e9}",
+      "color_map": {
+        "h1": "TEXT",
+        "h2": "TEXT",
+        "h3": "PRIMARY",
+        "text": "TEXT",
+        "link": "PRIMARY",
+        "code_bg": "CODE_BG",
+        "code_text": "CODE_TEXT",
+        "table_header_bg": "PRIMARY",
+        "table_border": "TABLE_BORDER",
+        "table_alt_bg": "PRIMARY_LIGHT",
+        "blockquote_border": "PRIMARY",
+        "blockquote_text": "BLOCKQUOTE_TEXT"
+      }
+    },
+    "gradient-pill": {
+      "label": "渐变胶囊",
+      "desc": "H2 渐变背景胶囊",
+      "default_palette": "yellow",
+      "html_css": ".md-body{font-family:\"PingFang SC\",\"Hiragino Sans GB\",\"Microsoft YaHei\",Arial,sans-serif;font-size:15px;line-height:1.8;color:#24292f;background:#fff;max-width:860px;margin:0 auto;padding:40px 0}.md-body h1{font-size:2em;font-weight:700;text-align:center;padding:16px 0 12px;border-bottom:2px solid #fff0d0;color:#24292f}.md-body h2{display:inline-block;padding:2px 16px;border-radius:6px;font-size:1.3em;font-weight:700;margin:24px 0 16px;background:linear-gradient(135deg,#fff0d0 0%,#a8d5a2 100%);color:#fff}.md-body h2 code,.md-body h2 strong{color:#fff}.md-body h3{font-size:1.15em;font-weight:700;margin:20px 0 10px;color:#ffe082;padding-bottom:4px;border-bottom:1px solid #fff0d0}.md-body h4,.md-body h5,.md-body h6{font-weight:700;margin:16px 0 8px}.md-body p{margin:0 0 16px}.md-body a{color:#ffe082;text-decoration:none}.md-body a:hover{text-decoration:underline}.md-body ul,.md-body ol{margin:12px 0 16px;padding-left:6%}.md-body li{margin-bottom:0.5em}.md-body li::marker{color:#ffe082}.md-body blockquote{margin:16px 0;padding:12px 20px;border-left:4px solid #ffe082;background:#fff0d0;color:#57606a}.md-body pre{margin:0 0 20px;padding:16px 20px;background:#2d3436;border-radius:6px;font-size:13px;line-height:1.5;overflow-x:auto}.md-body code{color:#C8963E;background:#F5F0E8;padding:2px 5px;border-radius:3px;font-size:0.9em}.md-body pre code{color:#dfe6e9;background:none;padding:0}.md-body table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}.md-body table th{padding:10px 14px;background:linear-gradient(135deg,#fff0d0 0%,#a8d5a2 100%);color:#fff;font-weight:700;border:1px solid rgba(255,255,255,0.3)}.md-body table td{padding:9px 14px;border:1px solid #d0d7de}.md-body table tr:nth-child(even) td{background:#fff0d0}.md-body hr{margin:24px 0;border:0;border-top:2px solid #e1e4e8}",
+      "color_map": {
+        "h1": "TEXT",
+        "h2": "PRIMARY",
+        "h3": "PRIMARY",
+        "text": "TEXT",
+        "link": "PRIMARY",
+        "code_bg": "PRIMARY_LIGHT",
+        "code_text": "SECONDARY",
+        "table_header_bg": "PRIMARY",
+        "table_border": "TABLE_BORDER",
+        "table_alt_bg": "PRIMARY_LIGHT",
+        "blockquote_border": "PRIMARY",
+        "blockquote_text": "BLOCKQUOTE_TEXT"
+      }
+    },
+    "stripe-docs": {
+      "label": "Stripe Docs",
+      "desc": "API文档 · 紧凑排版",
+      "default_palette": "purple",
+      "html_css": ".md-body{font-family:\"Inter\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:15px;line-height:1.7;color:#324654;background:#fff;max-width:800px;margin:0 auto;padding:32px 0}.md-body h1{font-size:1.8em;font-weight:700;color:#635BFF;margin:0 0 20px}.md-body h2{font-size:1.3em;font-weight:600;color:#635BFF;margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid #e6ebf1}.md-body h3{font-size:1.05em;font-weight:600;color:#324654;margin:24px 0 10px}.md-body h4,.md-body h5,.md-body h6{font-weight:600;margin:16px 0 8px}.md-body p{margin:0 0 14px;line-height:1.7}.md-body a{color:#635BFF;text-decoration:none}.md-body a:hover{text-decoration:underline}.md-body ul,.md-body ol{margin:12px 0;padding-left:1.5em}.md-body li{margin-bottom:4px}.md-body li::marker{color:#635BFF}.md-body blockquote{margin:12px 0;padding:10px 16px;color:#62778a;border-left:3px solid #635BFF;background:#f6f9fc}.md-body pre{margin:16px 0;padding:14px 16px;background:#1a1a2e;border-radius:6px;overflow-x:auto;font-size:13px;line-height:1.5;color:#e8e8e8}.md-body code{color:#635BFF;background:#f6f9fc;padding:1px 4px;border-radius:3px;font-size:0.9em}.md-body pre code{color:#e8e8e8;background:none;padding:0;font-size:13px}.md-body table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}.md-body table th{padding:8px 12px;background:#f6f9fc;color:#635BFF;font-weight:600;border:1px solid #e6ebf1}.md-body table td{padding:8px 12px;border:1px solid #e6ebf1}.md-body table tr:nth-child(even) td{background:#f6f9fc}.md-body hr{margin:24px 0;border:0;border-top:1px solid #e6ebf1}",
+      "color_map": {
+        "h1": "PRIMARY",
+        "h2": "PRIMARY",
+        "h3": "TEXT",
+        "text": "TEXT",
+        "link": "PRIMARY",
+        "code_bg": "PRIMARY_LIGHT",
+        "code_text": "PRIMARY",
+        "table_header_bg": "PRIMARY_LIGHT",
+        "table_border": "PRIMARY_LIGHT",
+        "table_alt_bg": "TABLE_ALT",
+        "blockquote_border": "PRIMARY",
+        "blockquote_text": "BLOCKQUOTE_TEXT"
+      }
+    },
+    "cmd-markdown": {
+      "label": "Cmd Markdown",
+      "desc": "写作笔记 · 酒红主色 · 装饰引号",
+      "default_palette": "wine",
+      "html_css": ".md-body{font-family:Helvetica,Arial,\"PingFang SC\",\"Microsoft YaHei\",\"WenQuanYi Micro Hei\",sans-serif;font-size:15px;line-height:1.8;color:#333;background:#fff;max-width:860px;margin:0 auto;padding:0}.md-body h1{font-size:2em;font-weight:700;line-height:1.1;color:#660033;padding-top:16px;margin-bottom:8px;border-bottom:none}.md-body h2{font-size:1.35em;font-weight:700;line-height:1.4;margin:40px 0 15px;padding:8px 0 8px 12px;border-left:6px solid #ff7e79;background:transparent;color:#333}.md-body h3{font-weight:700;font-size:1.15em;line-height:1.4;margin:24px 0 8px;padding-top:6px;color:#555}.md-body h4,.md-body h5,.md-body h6{font-weight:700;margin:16px 0 6px;color:#555}.md-body h5{font-weight:bold;text-transform:uppercase;color:#777}.md-body h6{font-weight:normal;color:#aaa}.md-body p{margin:0 0 18px;padding:0;line-height:1.8}.md-body a{color:#3399FF;text-decoration:none}.md-body a:hover{color:#f55852;text-decoration:underline}.md-body ul,.md-body ol{margin:12px 0 20px;padding-left:6%;line-height:1.8}.md-body li{margin-bottom:0.6em;margin-top:0.3em}.md-body strong{font-weight:700}.md-body em{font-style:italic}.md-body del{text-decoration:line-through;color:#999}.md-body blockquote{font-size:1em;font-style:normal;padding:28px 38px;margin:20px 0;position:relative;line-height:1.8;text-indent:0;border:none;color:#888;background:#f8f8f8;border-radius:4px}.md-body blockquote::before{content:\"\\201C\";left:12px;top:-5px;color:#e0e0e0;font-size:4em;font-family:Arial,serif;line-height:1em;font-weight:700;position:absolute}.md-body blockquote::after{content:\"\\201D\";right:12px;bottom:-25px;color:#e0e0e0;font-size:4em;font-family:Arial,serif;line-height:1em;font-weight:700;position:absolute}.md-body pre{margin:0 0 20px;font-size:13px;line-height:1.42857;word-break:break-all;word-wrap:break-word;border-radius:4px;white-space:pre-wrap;display:block;background:#000;padding:14px 20px;border:none;color:#999;font-family:Courier,\"SF Mono\",Menlo,Monaco,Consolas,monospace;overflow-x:auto}.md-body code{color:#00C000;background-color:#f5f5f5;border-radius:3px;font-family:Menlo,Monaco,Consolas,monospace;padding:2px 5px;font-size:0.9em}.md-body pre code{color:#999;background:transparent;padding:0;font-size:inherit;border-radius:0}.md-body table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px;display:block;overflow-x:auto}.md-body table thead tr{background:#660033;color:#fff}.md-body table thead th{padding:10px 14px;font-weight:700;text-align:left;border:1px solid rgba(255,255,255,0.2);white-space:nowrap}.md-body table tbody tr{border-bottom:1px solid #ddd}.md-body table tbody tr:nth-child(even){background:#f9f0f3}.md-body table tbody td{padding:9px 14px;border:1px solid #ddd;color:#333}.md-body hr{margin:28px 0;border:0;border-top:1px solid #eee}",
+      "color_map": {
+        "h1": "PRIMARY",
+        "h2": "SECONDARY",
+        "h3": "TEXT",
+        "text": "TEXT",
+        "link": "PRIMARY",
+        "code_bg": "CODE_BG",
+        "code_text": "SECONDARY",
+        "table_header_bg": "PRIMARY",
+        "table_border": "TABLE_BORDER",
+        "table_alt_bg": "PRIMARY_LIGHT",
+        "blockquote_border": "BLOCKQUOTE_BORDER",
+        "blockquote_text": "BLOCKQUOTE_TEXT"
+      }
+    },
+    "notion": {
+      "label": "Notion",
+      "desc": "团队笔记 · 极简无边框 · 干净利落",
+      "default_palette": "blue",
+      "html_css": ".md-body{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;color:#37352f;background-color:#fff}.md-body::before,.md-body::after{display:table;content:\"\"}.md-body::after{clear:both}.md-body a{color:#2f74c9;text-decoration:none}.md-body a:hover{text-decoration:underline}.md-body h1,.md-body h2,.md-body h3,.md-body h4,.md-body h5,.md-body h6{margin:24px 0 12px;font-weight:700;line-height:1.25;color:#37352f}.md-body h1{font-size:2em}.md-body h2{font-size:1.5em}.md-body h3{font-size:1.17em}.md-body h4{font-size:1em}.md-body p{margin:0 0 12px}.md-body strong{font-weight:700}.md-body code,.md-body tt{padding:0.2em 0.4em;font-size:85%;font-family:ui-monospace,Menlo,Consolas,monospace;background:#f7f6f3;border-radius:3px}.md-body pre{padding:12px 16px;overflow:auto;font-size:14px;line-height:1.5;font-family:ui-monospace,Menlo,Consolas,monospace;color:#37352f;background:#f7f6f3;border-radius:3px;margin:0 0 16px}.md-body pre code{padding:0;background:transparent;border:0;font-size:100%}.md-body blockquote{padding:0 0 0 12px;margin:0 0 12px;color:#9b9a97;border-left:3px solid #2f74c9}.md-body blockquote p{margin:0 0 12px}.md-body ul,.md-body ol{padding-left:1.5em;margin:0 0 12px}.md-body ul ul,.md-body ul ol,.md-body ol ul,.md-body ol ol{margin:0}.md-body li+li{margin-top:0.2em}.md-body table{display:block;width:100%;overflow:auto;border-collapse:collapse;margin-bottom:16px}.md-body table th{font-weight:700;padding:8px 12px;border:1px solid #e9e9e7;background:#f7f6f3}.md-body table td{padding:8px 12px;border:1px solid #e9e9e7}.md-body table tr{background:#fff;border-top:1px solid #e9e9e7}.md-body table tr:nth-child(2n){background:#f7f6f3}.md-body hr{height:1px;padding:0;margin:24px 0;background:#e9e9e7;border:0}.md-body img{max-width:100%}",
+      "color_map": {
+        "h1": "TEXT",
+        "h2": "TEXT",
+        "h3": "TEXT",
+        "text": "TEXT",
+        "link": "PRIMARY",
+        "code_bg": "CODE_BG",
+        "code_text": "SECONDARY",
+        "table_header_bg": "TABLE_HEADER_BG",
+        "table_border": "TABLE_BORDER",
+        "table_alt_bg": "TABLE_ALT",
+        "blockquote_border": "PRIMARY",
+        "blockquote_text": "BLOCKQUOTE_TEXT"
+      }
+    },
+    "medium": {
+      "label": "Medium",
+      "desc": "深度长文 · 衬线字体 · 青绿强调",
+      "default_palette": "teal",
+      "html_css": ".md-body{font-family:\"Charter\",Georgia,\"Times New Roman\",serif;font-size:21px;line-height:1.5;color:rgba(0,0,0,0.8);background-color:#fafafa}.md-body::before,.md-body::after{display:table;content:\"\"}.md-body::after{clear:both}.md-body a{color:#0fbd9b;text-decoration:none}.md-body a:hover{text-decoration:underline}.md-body h1,.md-body h2,.md-body h3,.md-body h4,.md-body h5,.md-body h6{margin:32px 0 16px;font-weight:700;line-height:1.25;color:rgba(0,0,0,0.8)}.md-body h1{font-size:2.2em}.md-body h2{font-size:1.5em}.md-body h3{font-size:1.3em}.md-body h4{font-size:1em}.md-body p{margin:0 0 20px}.md-body strong{font-weight:700}.md-body code,.md-body tt{padding:0.15em 0.3em;font-size:0.8em;font-family:\"SF Mono\",Menlo,Consolas,monospace;background:#f0f0f0;border-radius:4px}.md-body pre{padding:16px;overflow:auto;font-size:15px;line-height:1.5;font-family:\"SF Mono\",Menlo,Consolas,monospace;color:rgba(0,0,0,0.8);background:#f0f0f0;border-radius:4px;margin:0 0 24px}.md-body pre code{padding:0;background:transparent;border:0;font-size:100%}.md-body blockquote{padding:0 0 0 24px;margin:0 0 24px;color:rgba(0,0,0,0.6);border-left:3px solid #0fbd9b;font-style:italic}.md-body blockquote p{margin:0 0 16px}.md-body ul,.md-body ol{padding-left:1.5em;margin:0 0 20px}.md-body ul ul,.md-body ul ol,.md-body ol ul,.md-body ol ol{margin:0}.md-body li+li{margin-top:0.25em}.md-body table{display:block;width:100%;overflow:auto;border-collapse:collapse;margin-bottom:24px}.md-body table th{font-weight:700;padding:8px 12px;border-bottom:2px solid rgba(0,0,0,0.12)}.md-body table td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,0.08)}.md-body table tr:last-child td{border-bottom:none}.md-body hr{height:1px;padding:0;margin:32px 0;background:rgba(0,0,0,0.12);border:0}.md-body img{max-width:100%}",
+      "color_map": {
+        "h1": "TEXT",
+        "h2": "TEXT",
+        "h3": "TEXT",
+        "text": "TEXT",
+        "link": "PRIMARY",
+        "code_bg": "CODE_BG",
+        "code_text": "TEXT",
+        "table_header_bg": "TABLE_HEADER_BG",
+        "table_border": "TABLE_BORDER",
+        "table_alt_bg": "TABLE_ALT",
+        "blockquote_border": "PRIMARY",
+        "blockquote_text": "BLOCKQUOTE_TEXT"
+      }
+    },
+    "linear": {
+      "label": "Linear",
+      "desc": "产品文档 · 近黑背景 · 浅绿强调",
+      "default_palette": "lime",
+      "html_css": ".md-body{font-family:-apple-system,BlinkMacSystemFont,\"Inter\",Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#e0e0e0;background-color:#0a0a0a;padding:40px}.md-body::before,.md-body::after{display:table;content:\"\"}.md-body::after{clear:both}.md-body a{color:#82eaaa;text-decoration:none}.md-body a:hover{text-decoration:underline}.md-body h1,.md-body h2,.md-body h3,.md-body h4,.md-body h5,.md-body h6{margin:28px 0 16px;font-weight:600;line-height:1.2;color:#e0e0e0}.md-body h1{font-size:1.8em;letter-spacing:-0.02em}.md-body h2{font-size:1.4em;letter-spacing:-0.015em;border-bottom:1px solid #222;padding-bottom:0.4em}.md-body h3{font-size:1.15em}.md-body h4{font-size:1em}.md-body p{margin:0 0 16px}.md-body strong{font-weight:600}.md-body code,.md-body tt{padding:0.2em 0.4em;font-size:85%;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:rgba(130,234,170,0.08);color:#82eaaa;border-radius:4px}.md-body pre{padding:16px;overflow:auto;font-size:13px;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#e0e0e0;background:#161616;border:1px solid #222;border-radius:6px;margin:0 0 16px}.md-body pre code{padding:0;background:transparent;border:0;font-size:100%}.md-body blockquote{padding:0 1em;margin:0 0 16px;color:#666;border-left:2px solid #82eaaa}.md-body blockquote p{margin:0 0 16px}.md-body ul,.md-body ol{padding-left:1.5em;margin:0 0 16px}.md-body ul li::marker{color:#82eaaa}.md-body ul ul,.md-body ul ol,.md-body ol ul,.md-body ol ol{margin:0}.md-body li+li{margin-top:0.25em}.md-body table{display:block;width:100%;overflow:auto;border-collapse:collapse;margin-bottom:16px}.md-body table th{font-weight:600;padding:8px 12px;border:1px solid #222;background:#111}.md-body table td{padding:8px 12px;border:1px solid #222}.md-body table tr{background:#0a0a0a;border-top:1px solid #222}.md-body table tr:nth-child(2n){background:#111}.md-body hr{height:1px;padding:0;margin:24px 0;background:#222;border:0}.md-body img{max-width:100%}",
+      "color_map": {
+        "h1": "TEXT_WHITE",
+        "h2": "TEXT_WHITE",
+        "h3": "TEXT",
+        "text": "TEXT",
+        "link": "PRIMARY",
+        "code_bg": "CODE_BG",
+        "code_text": "PRIMARY",
+        "table_header_bg": "CODE_BG",
+        "table_border": "PRIMARY_DARK",
+        "table_alt_bg": "CODE_BG",
+        "blockquote_border": "PRIMARY_DARK",
+        "blockquote_text": "BLOCKQUOTE_TEXT"
+      }
+    }
+  }
+}
