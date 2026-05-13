@@ -26,7 +26,7 @@ Supports bilingual docs, mixed Chinese-English, tables and more.
 ## Quick Start / 快速开始
 
 ```bash
-/markdown-to-word-multi-style /path/to/article.md
+/mdstyle /path/to/article.md
 ```
 
 AI analyzes the file and recommends the best style.
