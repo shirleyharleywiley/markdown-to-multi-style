@@ -1,3 +1,9 @@
+---
+name: mdstyle
+description: 将 Markdown 转换为带精美样式的 Word 或 HTML，支持8种专业版式（left-block、bottom-deco、gradient-pill、stripe-docs、cmd-markdown、notion、medium、linear）。触发方式：(1) 发"mdstyle"(2) 发"markdown样式转换"
+globs: ["**/*.md", "**/*.markdown"]
+---
+
 # Markdown 样式转换器
 
 一键将 Markdown 转换为带精美样式的 Word 或 HTML，8 种专业版式。
