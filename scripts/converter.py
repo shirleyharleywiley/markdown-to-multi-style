@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Markdown 样式转换器 — 8 种版式 × 8 种配色，输出 Word 或 HTML"""
+"""Markdown 样式转换器 — 8 种版式，输出 Word 或 HTML"""
 
 import os, sys, re, json, markdown
 from docx import Document
@@ -44,10 +44,11 @@ PALETTES = _PALETTES()
 STYLES   = _STYLES()
 
 
-def build_color_dict(style_key, palette_key):
-    """根据版式+配色，构建 docx_colors 字典"""
+def build_color_dict(style_key):
+    """根据版式（使用默认配色），构建 docx_colors 字典"""
     data = _load()
     style = data['styles'][style_key]
+    palette_key = style.get('default_palette', 'blue')
     pal = data['palettes'][palette_key]
     cmap = style["color_map"]
 
@@ -76,10 +77,11 @@ def build_color_dict(style_key, palette_key):
     return result
 
 
-def css_with_palette(style_key, palette_key):
-    """将版式 CSS 中的占位符替换为实际配色值"""
+def css_with_palette(style_key):
+    """将版式 CSS 中的占位符替换为实际配色值（使用默认配色）"""
     data = _load()
     style = data['styles'][style_key]
+    palette_key = style.get('default_palette', 'blue')
     pal = data['palettes'][palette_key]
 
     def c(key):
@@ -264,12 +266,9 @@ def md_to_docx(md_path):
 # HTML 生成
 # ============================================================
 
-def generate_html(md_path, style_key, palette_key="blue", output_path=None):
+def generate_html(md_path, style_key, output_path=None):
     html_content = md_to_html(md_path)
-    data = _load()
-    style = data['styles'][style_key]
-    pal = data['palettes'][palette_key]
-    css = css_with_palette(style_key, palette_key)
+    css = css_with_palette(style_key)
 
     html = (
         '<!DOCTYPE html>\n'
@@ -297,7 +296,7 @@ def generate_html(md_path, style_key, palette_key="blue", output_path=None):
 
     if output_path is None:
         base = os.path.splitext(md_path)[0]
-        output_path = base + '-' + style["label"] + '-' + pal["label"] + '.html'
+        output_path = base + '-' + style_key + '.html'
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html)
     return output_path
@@ -427,11 +426,9 @@ def add_hr_docx(doc):
     pBdr.append(bottom); pPr.append(pBdr)
 
 
-def generate_docx(md_path, style_key, palette_key="blue", output_path=None):
+def generate_docx(md_path, style_key, output_path=None):
     soup = md_to_docx(md_path)
-    data = _load()
-    style = data['styles'][style_key]
-    colors = build_color_dict(style_key, palette_key)
+    colors = build_color_dict(style_key)
 
     doc = Document()
     section = doc.sections[0]
@@ -531,8 +528,7 @@ def generate_docx(md_path, style_key, palette_key="blue", output_path=None):
 
     if output_path is None:
         base = os.path.splitext(md_path)[0]
-        pal_label = _load()['palettes'][palette_key]["label"]
-        output_path = base + '-' + style["label"] + '-' + pal_label + '.docx'
+        output_path = base + '-' + style_key + '.docx'
     doc.save(output_path)
     return output_path
 
@@ -544,12 +540,11 @@ def generate_docx(md_path, style_key, palette_key="blue", output_path=None):
 if __name__ == '__main__':
     md_path = sys.argv[1] if len(sys.argv) > 1 else 'README.md'
     fmt = sys.argv[2] if len(sys.argv) > 2 else 'html'
-    style_key = sys.argv[3] if len(sys.argv) > 3 else 'left-block'
-    palette_key = sys.argv[4] if len(sys.argv) > 4 else 'blue'
+    style_key = sys.argv[3] if len(sys.argv) > 3 else 'block'
 
     if fmt == 'html':
-        out = generate_html(md_path, style_key, palette_key)
+        out = generate_html(md_path, style_key)
         print('HTML:', out)
     else:
-        out = generate_docx(md_path, style_key, palette_key)
+        out = generate_docx(md_path, style_key)
         print('Word:', out)

@@ -279,7 +279,7 @@
     }
   },
   "styles": {
-    "left-block": {
+    "block": {
       "label": "左侧大色块",
       "desc": "H1/H2 背景色块 · 斜切角装饰",
       "default_palette": "green",
@@ -299,7 +299,7 @@
         "blockquote_text": "BLOCKQUOTE_TEXT"
       }
     },
-    "bottom-deco": {
+    "deco": {
       "label": "底部装饰条",
       "desc": "彩虹底部边线 · 粉色强调",
       "default_palette": "pink",
@@ -319,7 +319,7 @@
         "blockquote_text": "BLOCKQUOTE_TEXT"
       }
     },
-    "gradient-pill": {
+    "pill": {
       "label": "渐变胶囊",
       "desc": "H2 渐变背景胶囊",
       "default_palette": "yellow",
@@ -339,7 +339,7 @@
         "blockquote_text": "BLOCKQUOTE_TEXT"
       }
     },
-    "stripe-docs": {
+    "stripe": {
       "label": "Stripe Docs",
       "desc": "API文档 · 紧凑排版",
       "default_palette": "purple",
@@ -359,7 +359,7 @@
         "blockquote_text": "BLOCKQUOTE_TEXT"
       }
     },
-    "cmd-markdown": {
+    "cmd": {
       "label": "Cmd Markdown",
       "desc": "写作笔记 · 酒红主色 · 装饰引号",
       "default_palette": "wine",

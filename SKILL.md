@@ -1,50 +1,47 @@
 ---
 name: mdstyle
-description: 将 Markdown 转换为带精美样式的 Word 或 HTML，支持8种专业版式（left-block、bottom-deco、gradient-pill、stripe-docs、cmd-markdown、notion、medium、linear）。触发方式：(1) 发"mdstyle"(2) 发"markdown样式转换"
-globs: ["**/*.md", "**/*.markdown"]
+description: 将md文件转换成html文件或word文件。当用户指定了一个或多个.md文件，并且提到“转html”、“转word”、“生成公众号文章”、“生成报告”时调用。
 ---
 
 # Markdown 样式转换器
 
-一键将 Markdown 转换为带精美样式的 Word 或 HTML，8 种专业版式。
-
-**专为 AI 产出内容设计**，双语文档、中英混杂、表格都能完美呈现。
-
-**Word 表格显示效果极佳**，双语并列表头会自动合并。
-
 ## 使用方法
 
-```
-/mdstyle /path/to/article.md
-```
+根据用户指定的输出文件格式及AI分析文件名和内容 - 推荐版式-确认后生成。
 
-AI 分析文件名和内容 → 推荐版式 → 确认后生成。
+### step1：根据用户指定的输出文件格式及AI分析文件名和内容后得出的场景，选出最优版式
 
-## 8 种版式
+如果用户指定了明确的版式名称
+| 版式 | 适合输出格式 | 典型适用场景 |
+| ------| ------| ------|  
+| block| html | 简历 |
+| deco | html | 技术博客 |
+| pill | html | 公众号文章 |
+| stripe | html, word | API文档 |
+| cmd | html, word | 报告论文 |
+| notion | html，word | 双语内容 |
+| medium | html, word | 超长文 |
+| Linear | html | 代码密集 |
 
-| 版式 | 配色 | 适合场景 |
-|------|------|----------|
-| left-block | 薄荷绿 | 简历 |
-| bottom-deco | 粉红 | 技术博客 |
-| gradient-pill | 柠檬黄 | 公众号 |
-| stripe-docs | 紫色 | API文档 |
-| cmd-markdown | 酒红 | 团队笔记 |
-| notion | 蓝色 | 双语内容 |
-| medium | 青绿 | 长文阅读 |
-| linear | 浅绿 | 代码密集 |
+### step2：将step1选出的版式推荐给用户，让用户确认
 
-## 输出格式
+如果用户提及“全部”或“都要”，则8种版式的对应文件都生成一遍。
 
-- **Word (.docx)** — Stripe Docs / Notion（表格显示效果极佳）
-- **HTML** — 全部 8 种版式
+### step3：生成对应文件
 
-## 避坑指南
+根据用户确认的版式
+Run 'python scripts/converter.py {filename} [html|docx] [style]' 生成对应文件
 
-| 版式 | 避免用于 |
-|------|----------|
-| gradient-pill | 含表格的文档 |
-| bottom-deco | 正式工作报告 |
-| left-block | 标题密集的文档 |
-| linear | 代码占比 <50% |
+例：生成 HTML 'python scripts/converter.py article.md html block'
+例：生成 Word 'python scripts/converter.py article.md docx stripe'
 
-> 查看 `examples/` 目录查看每种版式的实际效果
+### 避坑指南
+
+| 版式| 避免用于|
+| ------ | ------ | 
+| pill | 含表格的文档 |
+| deco | 正式工作报告 |
+| block | 标题密集的文档 |
+| Linear | 代码占比 <50% |
+
+> 查看 ‘references/examples/’ 目录查看每种版式的实际效果
