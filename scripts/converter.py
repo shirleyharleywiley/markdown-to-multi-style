@@ -244,12 +244,208 @@ def fix_special_syntax(md_text):
     return md_text
 
 
+def _cjk_width(text):
+    """估算单行文本渲染宽度（em）：
+    - CJK 字符按 1em 计
+    - 拉丁/数字字符按 0.5em 计
+    返回 em 值
+    """
+    cjk = sum(1 for c in text if '一' <= c <= '鿿')
+    ascii_count = len(text) - cjk
+    return cjk * 1.0 + ascii_count * 0.5
+
+
+def apply_table_layout(html):
+    """统一表格列宽规则（按列名匹配 + 总宽度约束 + 总高度最矮）：
+
+    核心设计原则：
+    - 列宽按"该列内容字数"的**平方根**比例分配（而非线性比例）：
+        w[i] ∝ sqrt(n[i] / n_max)
+      字数最多的列宽度 / 字数次多列宽度的平方 ≈ 二者字数之比。
+      这样能避免"字数最多的列无限制吞噬宽度"，让其他列也有合理宽度。
+    - 必须满足"总宽度 ≤ 容器宽度"（CONTAINER_EM=60em）。
+    - 表格内联样式：table-layout:fixed + word-break:break-word + white-space:normal
+      （让单元格内容在列宽内自动换行 → 高度最小化）
+
+    规则：
+    1. 同表头同列同宽（按列名匹配）
+    2. 列宽按该列内容总字数（em 维度）的平方根比例分配
+    3. 总宽 ≤ 60em，超出则等比缩放
+    4. 每列最低保证 6em
+
+    实现方式：
+    - 两遍扫描：
+      · 第一遍：收集"列名 → (表头 em, 该列内容总 em)" 用于后续 sqrt 缩放
+      · 第二遍：按列名回填每张表的 colgroup
+    """
+    import math
+    # 容器宽度（em），约等于 .md-body 的 max-width:860px / font-size:14px
+    CONTAINER_EM = 60
+    MIN_COL_EM = 6  # 每列最低保证宽度
+    BASE_EM = 8     # 最小列宽基准（与原 _columns_em 的 base 一致）
+
+    soup = BeautifulSoup(html, 'html.parser')
+    tables = soup.find_all('table')
+    if not tables:
+        return html
+
+    def _get_ths(table):
+        thead = table.find('thead')
+        if thead is not None:
+            ths = thead.find_all('th')
+            if ths:
+                return ths
+        first_tr = table.find('tr')
+        return first_tr.find_all('th') if first_tr else []
+
+    def _get_tds_by_col(table, n_cols):
+        """返回 [[col0_tds_text...], [col1_tds_text...], ...]，仅取 tbody 行
+
+        采样策略：每列最多取前 SAMPLE_LIMIT 个单元（不需要全表精确）。
+        """
+        SAMPLE_LIMIT = 5  # 每列最多采样 5 个单元，足够反映宽度需求
+
+        result = [[] for _ in range(n_cols)]
+        tbody = table.find('tbody')
+        rows = tbody.find_all('tr') if tbody else []
+        if not rows:
+            all_trs = table.find_all('tr')
+            rows = all_trs[1:] if all_trs else []
+        for tr in rows:
+            cells = tr.find_all(['td', 'th'])
+            for idx, cell in enumerate(cells[:n_cols]):
+                if len(result[idx]) < SAMPLE_LIMIT:
+                    result[idx].append(cell.get_text(strip=True))
+                else:
+                    # 该列已采满，跳过（节省时间）
+                    continue
+        return result
+
+    # 第一遍：收集"列名 → (表头 em, 该列内容总 em, 是否短列, 该列最大单格 em)"
+    # 跨表合并策略：把所有表的样本合在一起算总 em / max_single / all_short
+    SHORT_THRESHOLD = 15  # 单格内容 cjk 宽度低于此值视为"短列"
+    SHORT_FIXED_EM = 6   # 短列固定宽度
+
+    # 用嵌套 dict 收集所有样本：col_samples[name] = [all texts from all tables]
+    col_samples = {}
+
+    col_data = {}
+    for table in tables:
+        ths = _get_ths(table)
+        if not ths:
+            continue
+        col_names = [th.get_text(strip=True) for th in ths]
+        tds_by_col = _get_tds_by_col(table, len(col_names))
+        for idx, name in enumerate(col_names):
+            if not name:
+                continue
+            header_em = _cjk_width(name)
+            samples = tds_by_col[idx] if idx < len(tds_by_col) else []
+            # 累加所有样本到池中
+            col_samples.setdefault(name, []).extend(samples)
+            if name not in col_data:
+                col_data[name] = (header_em, 0, True, 0)  # 临时值
+            else:
+                old_header, _, _, old_max = col_data[name]
+                col_data[name] = (max(old_header, header_em), 0, True, old_max)
+
+    # 第二遍合并：基于完整样本池计算最终值
+    for name, samples in col_samples.items():
+        header_em = col_data[name][0]
+        body_total_em = sum(_cjk_width(s) for s in samples)
+        max_single_em = max((_cjk_width(s) for s in samples), default=0)
+        all_short = bool(samples) and all(_cjk_width(s) < SHORT_THRESHOLD for s in samples)
+        col_data[name] = (header_em, body_total_em, all_short, max_single_em)
+
+    # 第二遍：按"字数平方根"比例分配长列预算
+    # 核心算法：
+    # - 短列固定 6em，不参与预算分配
+    # - 长列预算 = CONTAINER_EM - 短列总宽
+    # - 各长列宽度 = 预算 × sqrt(n_i / n_max) / Σsqrt(n_i / n_max)
+    #   这样 W_最多 / W_次多 的平方 = n_最多 / n_次多（你定的核心规则）
+    #   例：n_max=120, n_2nd=30 → W_max / W_2nd = √(120/30) = 2
+    col_name_width = {}
+    if col_data:
+        # 短列直接固定 6em
+        long_cols = {n: v for n, v in col_data.items() if not v[2]}
+        for name in col_data:
+            if col_data[name][2]:
+                col_name_width[name] = SHORT_FIXED_EM
+
+        # 长列按 sqrt 字数比分配预算
+        if long_cols:
+            long_total_chars = {n: v[1] for n, v in long_cols.items()}
+            max_total_chars = max(long_total_chars.values()) if long_total_chars else 0
+
+            if max_total_chars > 0:
+                # 计算 sqrt 权重
+                sqrt_weights = {n: math.sqrt(c / max_total_chars)
+                                for n, c in long_total_chars.items()}
+                total_sqrt = sum(sqrt_weights.values())
+
+                # 长列总预算
+                short_total = sum(SHORT_FIXED_EM for n in col_data if col_data[n][2])
+                long_budget = max(0, CONTAINER_EM - short_total)
+
+                if total_sqrt > 0 and long_budget > 0:
+                    for name in long_cols:
+                        col_name_width[name] = max(
+                            MIN_COL_EM,
+                            long_budget * sqrt_weights[name] / total_sqrt
+                        )
+                else:
+                    for name in long_cols:
+                        col_name_width[name] = MIN_COL_EM
+            else:
+                for name in long_cols:
+                    col_name_width[name] = MIN_COL_EM
+
+        # 兜底：总宽仍超 CONTAINER_EM（MIN_COL_EM 兜底后）→ 等比再缩
+        total_em = sum(col_name_width.values())
+        if total_em > CONTAINER_EM:
+            scale = CONTAINER_EM / total_em
+            for name in col_name_width:
+                col_name_width[name] *= scale
+
+    # 第三遍：按列名回填每张表的 colgroup
+    for table in tables:
+        old = table.find('colgroup')
+        if old:
+            old.decompose()
+
+        ths = _get_ths(table)
+        if not ths:
+            continue
+
+        colgroup = soup.new_tag('colgroup')
+        for th in ths:
+            name = th.get_text(strip=True)
+            col = soup.new_tag('col')
+            if name in col_name_width:
+                em_val = round(col_name_width[name], 1)
+                col['style'] = f'width:{em_val}em'
+            else:
+                col['style'] = 'width:auto'
+            colgroup.append(col)
+        table.insert(0, colgroup)
+
+        existing = table.get('style', '')
+        if 'table-layout' not in existing:
+            table['style'] = (
+                existing + '; table-layout:fixed; word-break:break-word; white-space:normal'
+            ).strip('; ')
+
+    return str(soup)
+
+
 def md_to_html(md_path):
     md = open(md_path, encoding='utf-8').read()
     fixed = fix_bilingual_tables(md)
     fixed = fix_table_preceding_blank_lines(fixed)
     fixed = fix_special_syntax(fixed)
-    return markdown.Markdown(extensions=['fenced_code', 'tables', 'nl2br', 'sane_lists', 'toc']).convert(fixed)
+    html = markdown.Markdown(extensions=['fenced_code', 'tables', 'nl2br', 'sane_lists', 'toc']).convert(fixed)
+    html = apply_table_layout(html)
+    return html
 
 
 def md_to_docx(md_path):
