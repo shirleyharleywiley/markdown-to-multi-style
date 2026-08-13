@@ -22,10 +22,15 @@ description: 将md文件转换成html文件或word文件。当用户指定了一
 | notion | html，word | 双语内容 |
 | medium | html, word | 超长文 |
 | Linear | html | 代码密集 |
+| focus | html | 深度报告 · 大字距阅读 |
+| xiaomo | html | 文人随笔 · 极简居中 |
+| autumn | html | 治愈文艺 · 暖光卡片 |
+| ocean | html | 学术科普 · 深海卡片 |
+| spring | html | 生活自然 · 清新卡片 |
 
 ### step2：将step1选出的版式推荐给用户，让用户确认
 
-如果用户提及“全部”或“都要”，则8种版式的对应文件都生成一遍。
+如果用户提及“全部”或“都要”，则13种版式的对应文件都生成一遍。
 
 ### step3：生成对应文件
 
@@ -43,5 +48,6 @@ Run 'python scripts/converter.py {filename} [html|docx] [style]' 生成对应文
 | deco | 正式工作报告 |
 | block | 标题密集的文档 |
 | Linear | 代码占比 <50% |
+| xiaomo | 标题需左对齐的场景（全居中） |
 
 > 查看 ‘references/examples/’ 目录查看每种版式的实际效果
